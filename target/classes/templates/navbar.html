@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="navbar">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" th:href="@{/}">Medicare</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNav" aria-controls="navbarNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" th:href="@{/about}"
+						sec:authorize="hasAnyAuthority('Admin','User')">About</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/contact}"
+						sec:authorize="hasAnyAuthority('Admin','User')">Contact</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/view}"
+						sec:authorize="hasAnyAuthority('Admin','User')">View Products</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/admin-manage-products}"
+						sec:authorize="hasAuthority('Admin')">Manage Products</a></li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a	class="nav-link" href="" id="logoutLink">Logout</a></li>
+					<li class="nav-item"><a class="nav-link"
+						sec:authentication="principal.username"></a></li>
+				</ul>
+			</div>
+		</nav>		
+</div>
+</body>
+</html>

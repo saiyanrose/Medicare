@@ -1,0 +1,19 @@
+#footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	color: black;
+	text-align: center;
+}
+
+.card-header {
+	background-color: blue;
+	color: white;
+}
+
+.register {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Medicare- About/Contact</title>
+<div th:replace="library :: library"></div>
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+</head>
+<body>
+	<div>
+		<div th:replace="logout:: logout"></div>
+		<div th:replace="navbar:: navbar"></div>
+			<div class="about">			
+			<div class="about-section">
+				<h1>About Us</h1>
+				<p>Medicare is a company that supplies medicines and a couple of
+					other healthcare essentials at an affordable price. It was
+					established in 2012 in Delhi, India.</p>
+				<p>It had been serving fine all these years, however, the
+					business analysts noticed a drop in the selling since 2015. They
+					found out that online ordering of medicineswith companies, such as
+					100mg and mfine are gaining more profits by eliminating middlemen
+					from the equation. As a result, the team decided to hire a Full
+					Stack developer who could develop a healthcare web application with
+					a rich and user-friendly interface.</p>
+			</div>
+
+			<h2 style="text-align: center">Our Team</h2>
+			<div class="row">
+				<div class="column">
+					<div class="card">
+						<div class="container">
+							<h2>Piyush</h2>
+							<p class="title">Java Developer</p>
+							<p>piyushmalik08@gmail.com</p>							
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="card">
+						<div class="container">
+							<h2>Yoshika</h2>
+							<p class="title">Java Developer</p>
+							<p>yoshikarai2015@gmail.com</p>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div>
+			<br>
+			<hr>
+			<div class="container second-portion">
+				<div class="row">
+					<!-- Boxes de Acoes -->
+					<div class="col-xs-12 col-sm-6 col-lg-4">
+						<div class="box">
+							<div class="icon">
+								<div class="image">
+									<i class="fa fa-envelope" aria-hidden="true"></i>
+								</div>
+								<div class="info">
+									<h3 class="title">MAIL & WEBSITE</h3>
+									<p>
+										<i class="fa fa-envelope" aria-hidden="true"></i> &nbsp
+										simplilearn@gmail.com <br> <br> <i
+											class="fa fa-globe" aria-hidden="true"></i> &nbsp
+										www.simplilearn.com
+									</p>
+
+								</div>
+							</div>
+							<div class="space"></div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-lg-4">
+						<div class="box">
+							<div class="icon">
+								<div class="image">
+									<i class="fa fa-mobile" aria-hidden="true"></i>
+								</div>
+								<div class="info">
+									<h3 class="title">CONTACT</h3>
+									<p>
+										<i class="fa fa-mobile" aria-hidden="true"></i> &nbsp
+										(+91)-9624XXXXX <br> <br> <i class="fa fa-mobile"
+											aria-hidden="true"></i> &nbsp (+91)-756706XXXX
+									</p>
+								</div>
+							</div>
+							<div class="space"></div>
+						</div>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 col-lg-4">
+						<div class="box">
+							<div class="icon">
+								<div class="image">
+									<i class="fa fa-map-marker" aria-hidden="true"></i>
+								</div>
+								<div class="info">
+									<h3 class="title">ADDRESS</h3>
+									<p>
+										<i class="fa fa-map-marker" aria-hidden="true"></i> &nbspXYZ
+										
+									</p>
+								</div>
+							</div>
+							<div class="space"></div>
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+				<hr>
+		<div th:replace="footer :: footer"></div>
+	</div>
+</body>
+</html>

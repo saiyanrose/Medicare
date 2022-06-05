@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Medicare- Manage</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/manage.css}">
+</head>
+<body>
+	<div>
+		<div th:replace="library :: library"></div>
+		<div th:replace="logout:: logout"></div>
+		<div th:replace="navbar:: navbar"></div>
+
+		<div class="heading">
+			<hr>
+			<h2>
+				Available Products | <a th:href="@{/admin-manage-products/new}">Create
+					Product |</a> <a th:href="@{/admin-manage-products/new-category}">New
+					Category |</a> <a th:href="@{/admin-manage-products/map-product}">Map
+					Product |</a>
+			</h2>
+			<hr>
+		</div>
+		<div th:if="${message != null}"
+			class="alert alert-success text-center">[[${message}]]</div>
+		<div th:if="${param.message1 != null}"
+			class="alert alert-danger text-center">
+			<p style="color: black;">No Product Available!</p>
+		</div>
+		<div class="search">	
+			<form th:action="@{/admin-manage-products/page/1}" class="form-inline">	
+				<input type="hidden" name="sortField" th:value="${sortField}"/>
+				<input type="hidden" name="sortDir" th:value="${sortDir}"/>	
+				<input type="search" name="keyword" th:value="${keyword}" class="form-control" required /> &nbsp;&nbsp;
+			 	<input type="submit" value="Search" class="btn btn-primary" required /> &nbsp;&nbsp; 
+			</form>
+		</div>
+		<div class="text-center">
+			<table id="dtBasicExample"
+				class="table table-striped table-bordered table-sm " cellspacing="0"
+				width="100%">
+				<thead>
+					<tr>
+						<th class="th-sm">							
+							 <a th:if="${sortField=='id'}" class="text-white"
+								th:href="@{'/admin-manage-products/page/' +${pageNumber} + 
+							 '?sortField=id&sortDir=' + ${reverseSortDir}+ ${keyword!=null ? '&keyword=' +keyword : ''}}">
+								Id
+							 </a>
+							 <a th:if="${sortField!='id'}" class="text-white"
+								th:href="@{'/admin-manage-products/page/' +${pageNumber} + 
+							 '?sortField=id&sortDir=' + ${reverseSortDir}+ ${keyword!=null ? '&keyword=' +keyword : ''}}">
+							 Id
+							 </a>Id							 
+						</th>
+						<th class="th-sm">View</th>
+						<th class="th-sm">							
+							 <a th:if="${sortField=='name'}" class="text-white"
+								th:href="@{'/admin-manage-products/page/' +${pageNumber} + 
+							 '?sortField=name&sortDir=' + ${reverseSortDir}+ ${keyword!=null ? '&keyword=' +keyword : ''}}">
+								Name
+							 </a>
+							 
+							 <a th:if="${sortField!='name'}" class="text-white"
+								th:href="@{'/admin-manage-products/page/' +${pageNumber} + 
+							 '?sortField=name&sortDir=' + ${reverseSortDir}+ ${keyword!=null ? '&keyword=' +keyword : ''}}">
+								Name
+							 </a>Name
+						</th>
+						<th class="th-sm">							
+							 <a th:if="${sortField=='brand'}" class="text-white"
+								th:href="@{'/admin-manage-products/page/' +${pageNumber} + 
+							 '?sortField=brand&sortDir=' + ${reverseSortDir}+ ${keyword!=null ? '&keyword=' +keyword : ''}}">
+								Brand
+							 </a>
+							 
+							 <a th:if="${sortField!='brand'}" class="text-white"
+								th:href="@{'/admin-manage-products/page/' +${pageNumber} + 
+							 '?sortField=brand&sortDir=' + ${reverseSortDir}+ ${keyword!=null ? '&keyword=' +keyword : ''}}">
+								Brand
+							 </a>Brand
+						</th>
+						<th class="th-sm">Qty.Avail</th>
+						<th class="th-sm">Unit Price</th>
+						<th class="th-sm">Activate</th>
+						<th class="th-sm">Operations</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="items : ${list}">
+						<td>[[${items.id}]]</td>
+						<td style="height: 150px"><img th:if="${items.image !=null}"
+							th:src="@{${items.photosImagePath}}" style="width: 100px" /></td>
+						<td>[[${items.name}]]</td>
+						<td>[[${items.brand}]]</td>
+						<td>[[${items.availability}]]</td>
+						<td>Rs.[[${items.price}]]</td>
+						<td><a th:if="${items.enabled==true}"
+							th:href="@{'/admin-manage-products/' + ${items.id} + '/enabled/false'}"
+							title="Disable this product">Enable</a> <a
+							th:if="${items.enabled==false}"
+							th:href="@{'/admin-manage-products/' + ${items.id} + '/enabled/true'}"
+							title="Enable this user">Disable</a></td>
+						<td><a
+							th:href="@{'/admin-manage-products/edit/' + ${items.id}}">Edit
+								||</a> <a
+							th:href="@{'/admin-manage-products/delete/' + ${items.id}}">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text-center m-1" th:if="${totalItems>0}">
+				<span>Showing products #[[${startCount}]] to [[${endCount}]]
+					of [[${totalItems}]]</span>
+			</div>
+			<div class="text-center m-1" th:unless="${totalItems>0}">
+				<span>No Product Found</span>
+			</div>
+
+			<div th:if="${totalPage >1}">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">						
+						<li
+							th:class="${pageNumber > 1 ?'page-item' : 'page-item disabled'}"><a
+							class="page-link"
+							th:href="@{'/admin-manage-products/page/'+${pageNumber-1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${reverseSortDir}+ ${keyword!=null ? '&keyword=' +keyword : ''}}">First</a>
+
+						</li>
+						<li
+							th:class="${pageNumber != i ? 'page-item' :'page-item active'}"
+							th:each="i:${#numbers.sequence(1,totalPage)}"><a
+							class="page-link"
+							th:href="@{'/admin-manage-products/page/' +${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${reverseSortDir}+ ${keyword!=null ? '&keyword=' +keyword : ''}}">[[${i}]]</a></li>
+						<li
+							th:class="${pageNumber < totalPage ? 'page-item' :'page-item disabled'}"><a
+							class="page-link" th:href="@{'/admin-manage-products/page/'+${pageNumber+1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${reverseSortDir}+ ${keyword!=null ? '&keyword=' +keyword : ''}}">Next</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div th:replace="footer :: footer"></div>
+	</div>
+
+</body>
+</html>

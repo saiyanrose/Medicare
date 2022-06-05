@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Medicare- Home</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+</head>
+
+<body>
+	<div>
+		<div th:replace="library :: library"></div>
+		<div th:replace="logout:: logout"></div>
+		<div th:replace="navbar:: navbar"></div>
+		<!--  
+		<div class="text-center">
+			Welcome <a sec:authentication="principal.username"></a>&nbsp; <a
+				sec:authentication="principal.authorities"></a>
+		</div>
+		-->
+		<div th:if="${message != null}"
+			class="alert alert-danger text-center">[[${message}]]
+		</div>
+		<div>
+			<div class="w-25" id="wrapper">
+				<h2>Categories</h2>
+				<ul class="list-group">
+					<li class="list-group-item" th:each="item : ${parent}"><a
+						th:href="@{'/sub-category/' + ${item.id}}"> <span
+							style="color: #494645" th:text="${item.name}"></span></a></li>
+				</ul>
+			</div>
+			<div class="wrap">
+				<div th:replace="corousel :: corousel"></div>
+			</div>
+		</div>
+	</div>
+	<div class="subcategory" th:if="${sub!=null}">
+		<br>
+		<hr>
+		<div class="container">
+			<div class="text-center">
+				<h2>Products</h2>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="row justify-content-center">
+						<th:block th:each="s : ${sub}">
+							<div class="col-12 col-md-6 col-lg-4" th:if="${s.enabled==true}">
+								<div class="card " id="carrd">
+									<img class="card-img-top"
+										th:src="@{${s.photosImagePath}}"
+										alt="Card image cap" width="300" height="200">
+									<div class="card-body">
+										<h4 class="card-title">
+											<span th:text="${s.name}"></span>
+										</h4>
+										<div class="row">
+											<div class="col">
+												<p class="btn btn-danger btn-block"
+													th:text="Rs.+ ${s.price}"></p>
+											</div>
+											<div class="col">
+												<a href="#" class="btn btn-success btn-block">Add to
+													cart</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Medicare- View</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/view.css}">
+
+</head>
+<body>
+	<div class="container1">
+		<div th:replace="library :: library"></div>
+		<div th:replace="logout:: logout"></div>
+		<div th:replace="navbar:: navbar"></div>
+		<div>
+			<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+				<div class="container">
+					<div class="collapse navbar-collapse justify-content-end"
+						id="navbarsExampleDefault">
+						<form class="form-inline my-2 my-lg-0" th:action="@{/view/page/1}">
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" aria-label="Small"
+									aria-describedby="inputGroup-sizing-sm" placeholder="Search..." name="keyword" th:value="${keyword}">
+								<div class="input-group-append">									
+									<input type="submit" class="btn btn-secondary btn-number" value="Search">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</nav>
+			<div class="container text-center">
+				<h1 class="">List Of Medicines</h1>
+			</div>
+			<hr>
+
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">Home | Categories</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="row">
+							<th:block th:each="pro : ${product}">
+								<div class="col-12 col-md-6 col-lg-4" th:if=${pro.enabled==true}>
+									<div class="card " id="carrd">
+										<img class="card-img-top" th:src="@{${pro.photosImagePath}}"
+											alt="Card image cap" width="300" height="200">
+										<div class="card-body">
+											<h4 class="card-title">
+												<span th:text="${pro.name}"></span>
+											</h4>
+											<div class="row">
+												<div class="col">
+													<p class="btn btn-danger btn-block"
+														th:text="Rs.+ ${pro.price}"></p>
+												</div>
+												<div class="col">
+													<a href="#" class="btn btn-success btn-block">Add to
+														cart</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</th:block>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="text-center m-1" th:if="${totalItems>0}">
+				<span>Showing products #[[${startCount}]] to [[${endCount}]] of [[${totalItems}]] </span>
+			</div>
+			<div class="text-center m-1" th:unless="${totalItems>0}">
+				<span>No Product Found</span>
+			</div>
+			<div th:if="${totalPage >1}">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li th:class="${pageNumber > 1 ?'page-item' : 'page-item disabled'}"><a th:href="@{'/view/page/' +${pageNumber-1}}" class="page-link">First</a></li>
+						
+						<li	th:class="${pageNumber != i ? 'page-item' :'page-item active'}"	th:each="i:${#numbers.sequence(1,totalPage)}">
+							<a class="page-link" th:href="@{'/view/page/' +${i}}">[[${i}]]</a>
+						</li>
+						
+						<li th:class="${pageNumber < totalPage ? 'page-item' :'page-item disabled'}"><a th:href="@{'/view/page/' +${pageNumber-1}}" class="page-link">Next</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<div th:replace="footer :: footer"></div>
+</body>
+</html>

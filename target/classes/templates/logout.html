@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="logout">
+<form th:action="@{/logout}" method="post" th:hidden="true"
+			name="logoutForm">
+			<input type="submit" />
+</form>
+
+<script type="text/javascript">
+		$(document).ready(function() {
+			$("#logoutLink").on("click", function(e) {
+				e.preventDefault();
+				document.logoutForm.submit();
+			});
+		});
+	</script>
+</div>	
+</body>
+</html>
